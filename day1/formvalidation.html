@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #d79797;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 150vh;
+    }
+
+    form {
+      background: white;
+      padding: 25px;
+      width: 350px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input.error {
+      border-color: blue;
+    }
+
+    .error-message {
+      color:blue;
+      font-size: 13px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form id="myForm" novalidate>
+    <h2>Registration Form</h2>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your name">
+      <span class="error-message" id="nameError"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email">
+      <span class="error-message" id="emailError"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="Enter your age">
+      <span class="error-message" id="ageError"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password">
+      <span class="error-message" id="passwordError"></span>
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Get values
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const password = document.getElementById("password").value;
+
+      // Clear previous errors
+      document.querySelectorAll(".error-message").forEach(error => {
+        error.textContent = "";
+      });
+
+      document.querySelectorAll("input").forEach(input => {
+        input.classList.remove("error");
+      });
+
+      let isValid = true;
+
+      // Name validation
+      if (name === "") {
+        showError("name", "nameError", "Name is required.");
+        isValid = false;
+      } else if (name.length < 3) {
+        showError("name", "nameError", "Name must be at least 3 characters.");
+        isValid = false;
+      }
+
+      // Email validation
+      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+
+      if (email === "") {
+        showError("email", "emailError", "Email is required.");
+        isValid = false;
+      } else if (!emailPattern.test(email)) {
+        showError("email", "emailError", "Enter a valid email address.");
+        isValid = false;
+      }
+
+      // Age validation
+      if (age === "") {
+        showError("age", "ageError", "Age is required.");
+        isValid = false;
+      } else if (age < 18 || age > 100) {
+        showError("age", "ageError", "Age must be between 18 and 100.");
+        isValid = false;
+      }
+
+      // Password validation
+      if (password === "") {
+        showError("password", "passwordError", "Password is required.");
+        isValid = false;
+      } else if (password.length < 8) {
+        showError(
+          "password",
+          "passwordError",
+          "Password must be at least 8 characters."
+        );
+        isValid = false;
+      }
+
+      // Submit if everything is valid
+      if (isValid) {
+        alert("Form submitted successfully!");
+        form.reset();
+      }
+    });
+
+    function showError(inputId, errorId, message) {
+      document.getElementById(inputId).classList.add("error");
+      document.getElementById(errorId).textContent = message;
+    }
+  </script>
+
+</body>
+</html>

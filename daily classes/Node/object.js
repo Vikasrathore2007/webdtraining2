@@ -1,5 +1,5 @@
 console.log("++object++");
-const student ={
+let student ={
      id:101,
      name:"vikas",
      course:"b.tech"

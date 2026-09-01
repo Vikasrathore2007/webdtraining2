@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,6 +19,46 @@
 
 <body>
     <input type="button" onclick="sum()" value="results">
+    
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>function product(ID,name,quantity,price){
+    this.product_name=name;
+    this.product_id=ID;
+    this.quantity=quantity;
+    this.price=price;
+        function total(){
+            return quantity*price;
+        }
+     update_quantity=function(newquantity){
+            this.quantity= newquantity;
+        }
+        this.displayproduct=function(){
+            console.log("product_ID"+this.ID);
+            console.log("quantity"+this.quantity);
+            console.log("price"+this.price);
+            console.log("total"+this.total);
+        }
+}
+let p1=new product('DV1241','dove',42,899);
+let p2=new product('VM1241','vines',48,899);
+
+console.log("p1");
+p1.displayproduct();
+p1.update_quantity(200);
+console.log("p1 after update");
+p1.displayproduct(); 
+</script>
+
     
 </body>
 </html>
